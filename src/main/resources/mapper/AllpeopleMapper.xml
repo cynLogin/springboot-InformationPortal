@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springbootdemo.mapper.AllpeopleMapper">
+    <select id="getByIdPwd" parameterType="String" resultType="com.example.springbootdemo.bean.AllpeopleBean">
+        SELECT * FROM allpeople where userid =#{userID} AND pass_word=#{pass_word}
+    </select>
+    <select id="getById" parameterType="String" resultType="com.example.springbootdemo.bean.AdministratorBean">
+        SELECT * FROM administrator where userID =#{userId}
+    </select>
+    <select id="getAll" resultType="com.example.springbootdemo.bean.AllpeopleBean">
+        SELECT * FROM allpeople ORDER BY Cast(userID as signed) ASC
+    </select>
+    <select id="getUserById" parameterType="String" resultType="com.example.springbootdemo.bean.AllpeopleBean">
+        SELECT * FROM allpeople where userID=#{userId}
+    </select>
+    <select id="getUserDetailById" parameterType="String" resultType="com.example.springbootdemo.bean.AllpeopleDetailBean">
+        SELECT userID,username,sex,tel,notice_deliver_priv,pass_word,usertype_name,dpartment_name
+        FROM allpeople left join department on allpeople.department_no=department.department_no
+        left join usertype on allpeople.usertype_no=usertype.usertype_no
+        WHERE userID = #{userId}
+    </select>
+    <update id="updateUserDetailById">
+        UPDATE allpeople
+        SET
+            username = #{username},
+            sex = #{sex},
+            tel = #{tel},
+            notice_deliver_priv = #{notice_deliver_priv},
+            pass_word = #{pass_word},
+            usertype_no = #{usertype_no},
+            department_no = #{department_no}
+        WHERE userID=#{userId}
+    </update>
+    <delete id="deleteUserById" parameterType="String">
+        DELETE FROM allpeople
+        WHERE userID = #{userId}
+    </delete>
+    <insert id="insertUser">
+        INSERT INTO allpeople (userID,username,sex,tel,notice_deliver_priv,
+                               pass_word,usertype_no,department_no)
+        VALUES (#{userId},#{userName},#{sex},#{tel},#{noticeDeliverPriv},
+                #{passWord},#{userTypeNo},#{departmentNo})
+    </insert>
+    <select id="getUserByDepartment" parameterType="String" resultType="com.example.springbootdemo.bean.AllpeopleBean">
+        SELECT *
+        FROM allpeople
+        WHERE department_no = #{departmentId}
+    </select>
+    <select id="getUserByType" parameterType="String" resultType="com.example.springbootdemo.bean.AllpeopleBean">
+        SELECT *
+        FROM allpeople
+        WHERE usertype_no = #{typeId}
+    </select>
+    <select id="getUserByIdNameDepartment" parameterType="String" resultType="com.example.springbootdemo.bean.AllpeopleBean">
+        SELECT *
+        FROM allpeople
+        WHERE userID like CONCAT('%',#{userID},'%') and username like CONCAT('%', #{userName}, '%')
+    </select>
+</mapper>

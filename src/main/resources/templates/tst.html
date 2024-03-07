@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Layui 聊天界面</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/layui/2.6.8/css/layui.css">
+</head>
+
+<body>
+
+    <div class="layui-container">
+        <div class="layui-row">
+            <div class="layui-col-md6">
+                <div class="layui-card">
+                    <div class="layui-card-header">好友列表</div>
+                    <div class="layui-card-body" style="height: 400px; overflow-y: auto;">
+                        <!-- 好友列表内容 -->
+                        <ul class="layui-timeline">
+                            <li class="layui-timeline-item">
+                                <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                                <div class="layui-timeline-content layui-text">
+                                    <h3 class="layui-timeline-title">张三</h3>
+                                </div>
+                            </li>
+                            <!-- 其他好友列表项 -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md6">
+                <div class="layui-card">
+                    <div class="layui-card-header">聊天窗口</div>
+                    <div class="layui-card-body" style="height: 400px; overflow-y: auto;">
+                        <!-- 聊天内容 -->
+                        <ul class="layui-timeline">
+                            <li class="layui-timeline-item">
+                                <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                                <div class="layui-timeline-content layui-text">
+                                    <h3 class="layui-timeline-title">张三</h3>
+                                    <p>你好，有什么新鲜事吗？</p>
+                                </div>
+                            </li>
+                            <!-- 其他聊天记录项 -->
+                        </ul>
+                    </div>
+                    <div class="layui-card-footer">
+                        <textarea class="layui-textarea" placeholder="请输入消息内容"></textarea>
+                        <button class="layui-btn layui-btn-primary" style="float: right;">发送</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.staticfile.org/layui/2.6.8/layui.js"></script>
+    <script>
+        // 你的业务逻辑代码可以在这里编写
+        layui.use(['element', 'layer'], function () {
+            var element = layui.element;
+            var layer = layui.layer;
+
+            // 其他业务逻辑代码...
+        });
+    </script>
+</body>
+
+</html>

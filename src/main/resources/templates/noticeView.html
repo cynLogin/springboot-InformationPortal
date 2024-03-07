@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>通知详情</title>
+    <!-- 请勿在项目正式环境中引用该 layui.css 地址 -->
+    <link href="//cdn.staticfile.org/layui/2.8.18/css/layui.css" rel="stylesheet">
+</head>
+
+<body>
+    <style>
+        .info-container {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .info-item {
+            display: inline-block;
+            margin-right: 20px;
+            font-weight: bold;
+            color: gray;
+        }
+
+        .separator {
+            border-top: 3px solid darkred;
+            margin-top: 25px;
+            width: 85%;
+
+        }
+    </style>
+    <div style="padding: 20px;">
+        <div class="layui-card layui-panel"
+            style="width: 75%; margin: 0 auto; min-height: 800px;box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);">
+            <div class="layui-card-header" style="text-align: center; padding: 30px">
+                <h1 id="title">居中的标题</h1>
+                <div class="info-container">
+                    <div class="info-item">
+                        发布部门:
+                        <a id="department" style="font-weight: normal; color: gray;"></a>
+                    </div>
+
+                    <div class="info-item">
+                        发布人:
+                        <a id="sender" style="font-weight: normal; color: gray;"></a>
+                    </div>
+
+                    <div class="info-item">
+                        发布时间:
+                        <a id="time" style="font-weight: normal; color: gray;"></a>
+                    </div>
+
+                </div>
+                
+            </div>
+            <div class="separator-container" style=" display: flex;
+            justify-content: center; 
+            align-items: center; ">
+                <div class="separator" ></div>
+            </div>
+            <style>
+                #content {
+                    margin: 30px;
+                    padding-left: 50px;
+                    padding-right: 50px;
+                    line-height: 1.5;
+                    font-size: large;
+                    /* 其他样式属性 */
+                }
+            </style>
+            <div class="layui-card-body">
+                <div id="content"></div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script src="//cdn.staticfile.org/layui/2.8.18/layui.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // 获取当前页面的URL
+            var currentURL = window.location.href;
+
+            // 使用正则表达式从URL中提取userID
+            var match = currentURL.match(/\/page\/(\d+)/);
+
+            if (match) {
+                // 用户ID位于正则匹配的第一个捕获组中
+                var noticeID = match[1];
+                var data1 = {
+                    noticeId: noticeID
+                };
+                $.ajax({
+                url: '/searchDetail',
+                method: 'GET',
+                data: data1,
+                success: function(data) {
+                    // 将查询结果显示在页面上
+                    var titleElement=document.getElementById('title');
+                    var contentElement = document.getElementById('content');
+                    var departmentElement=document.getElementById('department');
+                    var senderElement=document.getElementById('sender');
+                    var timeElement=document.getElementById('time');
+                    titleElement.innerHTML=data.title;
+                    contentElement.innerText =data.content;
+                    departmentElement.innerHTML=data.department_name;
+                    senderElement.innerHTML=data.username;
+                    timeElement.innerHTML=data.sendTime;
+                },
+                error: function(xhr, status, error) {
+                    console.error('数据库查询出错:', error);
+                }
+            });
+            } else {
+                console.log("未找到UserID");
+            }
+        });
+            
+        
+
+    </script>
+</body>
+
+</html>
